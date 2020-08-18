@@ -1,0 +1,78 @@
+using System;
+using System.Collections.Generic;
+
+namespace ConsoleApp6
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Zoo zoo = new Zoo();
+            {
+                zoo.JobZoo();
+            }
+        }
+    }
+
+    class Zoo
+    {
+        private List<Aviary> _aviaries;
+
+        public void JobZoo()
+        {
+            _aviaries = new List<Aviary> {new Aviary("Лев", new List<Animal> { new Animal("Львица", "рычит", "самка"), new Animal("Лев-2", "мяукает", "самец"), new Animal("Лев-3", "писк", "самец") }),
+                                          new Aviary("Панда", new List<Animal> { new Animal("Том-том", "пандовские звуки", "самец"), new Animal("По", "пандовские звуки", "самец") }),
+                                          new Aviary("Депутат", new List<Animal> { new Animal("казёл", "храп", "неведома зверюшка") }),
+                                          new Aviary("Белка", new List<Animal> { new Animal("Белка-1", "шумит", "самец"), new Animal("Белка-2", "шумит", "самец"), new Animal("Белка-3", "шумит", "самка"), new Animal("Белка-4", "шумит", "самка") })};
+            while (true)
+            {
+                Console.WriteLine("1 - Лев\n2 - Панда\n3 - Депутат\n4 - Белка");
+                Console.Write("Введите команду: ");
+                int userInpyt = Convert.ToInt32(Console.ReadLine()) - 1;
+                _aviaries[userInpyt].AviaryInfo(userInpyt);
+                Console.WriteLine("Нажми кнопку чтобы вернуться на тропу...");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+    }
+
+    class Aviary
+    {
+        private List<Animal> _animals = new List<Animal>();
+        private string _kindAnimal;
+
+        public Aviary(string kindAnimal, List<Animal> animals)
+        {
+            _animals = animals;
+            _kindAnimal = kindAnimal;
+        }
+        public void AviaryInfo(int userInpyt)
+        {
+            Console.WriteLine("Вид животного: " + _kindAnimal + " | Популяция: " + _animals.Count);
+            for (int i = 0; i < _animals.Count; i++)
+            {
+                _animals[i].AnimalInfo(i, _animals);
+            }
+        }
+    }
+
+    class Animal
+    {
+        private string _nameAnimal;
+        private string _soundAnimal;
+        private string _floor;
+
+        public Animal(string nameAnimal, string soundAnimal, string floor)
+        {
+            _nameAnimal = nameAnimal;
+            _soundAnimal = soundAnimal;
+            _floor = floor;
+        }
+
+        public void AnimalInfo(int i, List<Animal> _animals)
+        {
+            Console.WriteLine("Кличка: " + _animals[i]._nameAnimal + " | Пол: " + _animals[i]._floor + " | Издают звуки: " + _animals[i]._soundAnimal);
+        }
+    }
+}
